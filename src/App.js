@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState,useEffect} from "react";
+import Robots from './Robots'
 
 function App() {
-  return (
+  const [robots,setRobots] = useState({});
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("https://jsonplaceholder.typicode.com/users");
+      res
+        .json()
+        .then(res => setRobots(res))
+    }
+
+    fetchData();
+  });
+
+  return !robots.length ?
+     <h1>loading</h1>:
+   (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Robots robo={robots}/>
+      <span>{JSON.stringify(robots)}</span>
     </div>
   );
 }
