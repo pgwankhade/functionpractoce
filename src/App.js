@@ -21,7 +21,6 @@ function App() {
    (
     <div className="App">
       <Robots robo={robots}/>
-      <span>{JSON.stringify(robots)}</span>
     </div>
   );
 }
