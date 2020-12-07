@@ -1,27 +1,22 @@
-import React, {useState,useEffect} from "react";
+import React from "react";
+import useCostomhook from './Costomhook'
 import Robots from './Robots'
 
 function App() {
-  const [robots,setRobots] = useState({});
-  const [loading, setLoading] = useState(false)
+  const data = useCostomhook();
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://jsonplaceholder.typicode.com/users");
-      res
-        .json()
-        .then(res => setRobots(res))
-    }
-
-    fetchData();
-  });
-
-  return !robots.length ?
-     <h1>loading</h1>:
-   (
+  return !data.robots.length ?
+  <h1>Loading</h1> : (
     <div className="App">
-      <Robots robo={robots}/>
-    </div>
+    <h1>names</h1>
+    {
+     data.robots.map((user, i) => {
+      return (
+       <h1>{user.name}</h1>
+      );
+    })
+  }
+  </div>  
   );
 }
 
