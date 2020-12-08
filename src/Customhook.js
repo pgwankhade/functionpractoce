@@ -12,10 +12,12 @@ function useCustomhook(initialUrl){
         const res = await fetch(url);
         res
           .json()
-          .then(res => setRobots(res))
+          .then(res => {
+            setLoading(false)
+            setRobots(res)
+          })
       } 
       fetchData(url);
-      setLoading(false)
     },[url]);
   
  
